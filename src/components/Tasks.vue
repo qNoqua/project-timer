@@ -1,29 +1,22 @@
 <template>
   <div>
     <ul class="tasks" v-if="tasks.length > 0">
-      <li class="task"
+      <li
+        class="task"
         v-for="task in tasks"
         v-bind:key="task.id"
         v-on:click="onTaskChange(task)"
-        v-bind:class="{active: task.id === activeTaskId}"
+        v-bind:class="{ active: task.id === activeTaskId }"
       >
-        <span>{{ task.title }}</span> <span>{{ task.timer }}</span> 
+        <span>{{ task.title }}</span> <span>{{ task.timer }}</span>
       </li>
     </ul>
     <div v-else>Задач нет</div>
   </div>
 </template>
 
-
-
-
 <script>
 export default {
-
-
-
-
-
   props: {
     tasks: {
       type: Array,
@@ -37,16 +30,10 @@ export default {
   methods: {
     onTaskChange(task) {
       this.$emit("change", task);
-    //   console.log(task);
+      //   console.log(task);
     },
   },
 };
-
-
-
-
-
-
 </script>
 
 <style scoped>
@@ -68,7 +55,7 @@ li:not(.active):hover {
   background: gray;
 }
 .active {
-    background: lightblue;
+  background: lightblue;
 }
 .task {
   display: flex;

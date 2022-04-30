@@ -1,74 +1,74 @@
 <template>
   <div class="container">
     <div class="task_control">
-      <task-control v-on:timeChange="onTimeChange" v-bind:actveTask="activeTask" v-bind:time="totalTime"/>
+      <task-control
+        v-on:timeChange="onTimeChange"
+        v-bind:actveTask="activeTask"
+        v-bind:time="totalTime"
+      />
     </div>
-    <div class="project_selection">
-      Task
-    </div>
+    <div class="project_selection">Task</div>
     <div class="tasks">
-      <tasks v-bind:tasks="tasks" v-bind:activeTaskId="activeTask?.id" v-on:change="changeTask"/>
+      <tasks
+        v-bind:tasks="tasks"
+        v-bind:activeTaskId="activeTask?.id"
+        v-on:change="changeTask"
+      />
       <form v-on:submit.prevent="createTask">
-        <input class="input_task" type="text" v-model="title">
+        <input class="input_task" type="text" v-model="title" />
         <button class="btn" v-bind:disabled="this.title === ''">+</button>
       </form>
-   
     </div>
-
   </div>
 </template>
 
 <script>
+import Tasks from "@/components/Tasks";
+import TaskControl from "@/components/TaskControl";
 
-import Tasks from '@/components/Tasks'
-import TaskControl from '@/components/TaskControl'
-// import { Task } from './models'
 
 export default {
   name: "App",
   mounted() {
-    this.countTotalTime()
+    this.countTotalTime();
   },
   components: {
     Tasks,
-    TaskControl
+    TaskControl,
   },
-  data () {
+  data() {
     return {
-      tasks: JSON.parse(localStorage.getItem('tasks')) || [],
-      title: '',
+      tasks: JSON.parse(localStorage.getItem("tasks")) || [],
+      title: "",
       activeTask: undefined,
       totalTime: 0,
-    }
+    };
   },
 
   methods: {
     changeTask(task) {
       this.activeTask = task;
-
     },
     onTimeChange(time) {
       this.activeTask.timer = time;
-      this.countTotalTime()
-      localStorage.setItem('tasks', JSON.stringify(this.tasks))
+      this.countTotalTime();
+      localStorage.setItem("tasks", JSON.stringify(this.tasks));
     },
-    countTotalTime(){
+    countTotalTime() {
       let count = 0;
       for (let i = 0; i < this.tasks.length; i++) {
         count += this.tasks[i].timer;
       }
       this.totalTime = count;
     },
-    createTask(){
-      const task = {id: this.tasks.length, title: this.title, timer: 0}
+    createTask() {
+      const task = { id: this.tasks.length, title: this.title, timer: 0 };
       this.tasks.push(task);
-      localStorage.setItem('tasks', JSON.stringify(this.tasks))
-      this.title = '';
-    }
-  }
-
+      localStorage.setItem("tasks", JSON.stringify(this.tasks));
+      this.title = "";
+    },
+  },
 };
-
 </script>
 
 <style>
@@ -126,11 +126,10 @@ body {
   cursor: pointer;
 }
 .btn:hover {
-    background: gray;
+  background: gray;
 }
 form {
   display: flex;
   margin-top: 10px;
 }
-
 </style>

@@ -56,10 +56,8 @@ export default {
   border: 1px solid gray;
   border-radius: 3px;
   font-size: 15px;
-
 }
 .btn:hover {
   background: gray;
 }
-
 </style>
